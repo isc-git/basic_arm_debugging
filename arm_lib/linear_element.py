@@ -44,8 +44,6 @@ class LinearElementPlot(Plotter):
             color = LINEAR_ELEMENT_COLOR[self.joint.layer % len(LINEAR_ELEMENT_COLOR)]
         )
 
-        print(f"{LINEAR_ELEMENT_COLOR[self.joint.layer % len(LINEAR_ELEMENT_COLOR)]}")
-
         ax.add_line(self.line)
     
     def update(self, frame: Frame2D):
