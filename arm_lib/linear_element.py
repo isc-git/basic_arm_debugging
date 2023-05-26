@@ -11,6 +11,7 @@ from arm_lib.arm_lib import Frame2D, Joint, Plotter
 @dataclass
 class LinearElement(Joint):
     length: float
+    layer: int
 
     def transform(self, frame: Frame2D):
         naive_offset = np.matrix([[self.length],[0.0]])
@@ -40,8 +41,10 @@ class LinearElementPlot(Plotter):
             [frame.origin[0], resulting_frame.origin[0]],
             [frame.origin[1], resulting_frame.origin[1]],
             marker = "o",
-            color = LINEAR_ELEMENT_COLOR
+            color = LINEAR_ELEMENT_COLOR[self.joint.layer % len(LINEAR_ELEMENT_COLOR)]
         )
+
+        print(f"{LINEAR_ELEMENT_COLOR[self.joint.layer % len(LINEAR_ELEMENT_COLOR)]}")
 
         ax.add_line(self.line)
     
