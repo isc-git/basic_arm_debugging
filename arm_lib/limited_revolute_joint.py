@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Type, Union
+from typing import List, Type, Union
 
 from matplotlib import pyplot as plt
 import matplotlib.patches as pat
@@ -13,6 +13,7 @@ class LimitedRevoluteJoint(Joint):
     min: Degrees
     max: Degrees
     rotation: Degrees
+    layers: List[int]
 
     def rotate(self, angle: Degrees) -> Union[Degrees, JointLimitError]:
         if angle < self.min:

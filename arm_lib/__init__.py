@@ -1,8 +1,13 @@
 REVOLUTE_RADIUS: float = 0.2
-REVOLUTE_POTENTIAL_COLOR: str = "gray"
-REVOLUTE_FULFILLED_COLOR: str = "green"
+REVOLUTE_POTENTIAL_COLOR: str = "#e6f2ec"
+REVOLUTE_FULFILLED_COLOR: str = "#b3ffd5"
 REVOLUTE_FULFILLED_ERROR: str = "red"
-LINEAR_ELEMENT_COLOR: str = "black"
+LINEAR_ELEMENT_COLOR: str = [
+    "#fab1ea",
+    "#a77aff",
+    "#7affbf",
+    "#fae170"
+]    
 
 from .arm_lib import *
 from .arm import *
