@@ -5,17 +5,19 @@ from matplotlib import pyplot as plt
 import numpy as np
 from arm_lib import LINEAR_ELEMENT_COLOR
 
-from arm_lib.arm_lib import Frame2D, Joint, Plotter
+from arm_lib.arm_lib import Degrees, Frame2D, Joint, Plotter
 
 
 @dataclass
 class LinearElement(Joint):
     length: float
+    angle_offset: Degrees
     layer: int
 
     def transform(self, frame: Frame2D):
+        orientation = frame.orientation + self.angle_offset
         naive_offset = np.matrix([[self.length],[0.0]])
-        rad = np.radians(frame.orientation)
+        rad = np.radians(orientation)
         cos = np.cos(rad)
         sin = np.sin(rad)
         rotation = np.matrix(
@@ -26,7 +28,7 @@ class LinearElement(Joint):
              [frame.origin[1]]])
         result = rotation*naive_offset + translation
         result = np.squeeze(result.tolist())
-        return Frame2D((result[0], result[1]), frame.orientation)
+        return Frame2D((result[0], result[1]), orientation)
     
     def plotter(self, ax: plt.Axes, frame: Frame2D) -> Type[Plotter]:
         return LinearElementPlot(ax, frame, self)
