@@ -6,3 +6,6 @@ venv/
 
 # images generated from plotes
 **/*.png
+
+# IDE
+**/.vscode/

@@ -1,38 +1,25 @@
-import matplotlib.pyplot as plt
-
-from dataclasses import dataclass
 from enum import Enum
-from typing import Tuple, Type
+from typing import List
 
-Degrees = float
 
 class ArmState(Enum):
     OK = 0
     ERROR = 1
 
-@dataclass
-class Frame2D:
-    origin: Tuple[float, float]
-    orientation: Degrees
 
-@dataclass
-class Plotter:
-    def update(self, frame: Frame2D):
-        raise NotImplementedError
+def print_matrix(elements: List[List[str]]) -> str:
+    col_max = [0] * len(elements[0])
+    for row in elements:
+        for col in range(len(row)):
+            if len(row[col]) > col_max[col]:
+                col_max[col] = len(row[col])
 
-    def error(self):
-        raise NotImplementedError
+    mat = ""
+    for row in elements:
+        row_fixed = []
+        for index in range(len(row)):
+            row_fixed.append(f"{row[index]:>{col_max[index]}}")
 
-    def recover(self):
-        raise NotImplementedError
+        mat += "│ " + ", ".join(row_fixed) + " │\n"
 
-@dataclass
-class Joint:
-    def transform(self, frame: Frame2D):
-        raise NotImplementedError
-    
-    def plotter(self, ax: plt.Axes, frame: Frame2D) -> Type[Plotter]:
-        raise NotImplementedError
-
-class JointLimitError(Exception):
-    pass
+    return mat
